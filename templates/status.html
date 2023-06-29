@@ -1,0 +1,265 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>courier | Landing, Responsive &amp; Business Templatee</title>
+
+    <!-- ===============================================-->
+    <!--    Favicons-->
+    <!-- ===============================================-->
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'assets/img/favicons/apple-touch-icon.png' %}" />
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'assets/img/favicons/favicon-32x32.png' %}" />
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'assets/img/favicons/favicon-16x16.png' %}" />
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'assets/img/favicons/favicon.ico' %}" />
+    <link rel="manifest" href="{% static 'assets/img/favicons/manifest.json' %}" />
+    <meta name="msapplication-TileImage" content="{% static 'assets/img/favicons/mstile-150x150.png' %}" />
+    <meta name="theme-color" content="#ffffff' " />
+    <link href="{% static 'assets/css/theme.css' %}" rel="stylesheet" />
+    <link rel="stylesheet" href="{% static 'vendors/icons/tabler-icons/tabler-icons.css' %}" />
+    <style>
+        .makeDelivery .form-group input {
+            width: 100%;
+            border: none;
+            outline: none;
+            border-radius: 3px;
+            font-size: 16px;
+            padding: 7px;
+        }
+
+        .makeDelivery ::placeholder {
+            color: #dfdfdf;
+        }
+
+        .makeDelivery .form-group {
+            margin-bottom: 5px;
+        }
+
+        .makeDelivery input[type=submit] {
+            width: 100%;
+            border: none;
+            text-transform: uppercase;
+            padding: 7px;
+            font-weight: 900;
+            background: #D44E15;
+            color: white;
+            border-radius: 2px;
+        }
+
+        .makeDelivery input[type=submit]:hover {
+            background: #f5672b;
+        }
+
+        .preferences {
+            display: flex;
+            gap: 10px;
+        }
+
+        .preferences input {
+            width: 50% !important;
+        }
+
+        .trackingID {
+            height: 40px;
+            display: none;
+            margin-bottom: 10px;
+        }
+
+        .form-div {
+            display: flex;
+            margin-top: 10px;
+            gap: 10px;
+            height: 100%;
+            margin-bottom: 20px;
+        }
+
+        .form-div #trackingIDInputContent {
+            width: 100%;
+            background-color: white;
+            color: black;
+            height: 100%;
+            border-radius: 3px;
+            font-size: 16px;
+            padding: 7px;
+        }
+
+        .form-div span {
+            height: 40px;
+            padding: 10px 10px;
+            border-radius: 5px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, .1);
+            background: #fff;
+            cursor: pointer;
+        }
+
+        .form-div span:hover {
+            background: #D44E15;
+            color: white;
+        }
+
+        .error {
+            background: red;
+            color: white;
+        }
+
+        .form-weight {
+            width: 100%;
+        }
+
+        .form-height {
+            width: 100%;
+        }
+
+        .form-height input,
+        .form-weight input {
+            width: 100% !important;
+        }
+
+        .trackPackageForm {
+            margin-top: 20px;
+        }
+
+        .trackPackageForm input[type=text] {
+            width: 80%;
+            height: 45px;
+            border: none;
+            outline-color: #D44E15;
+            border-radius: 5px;
+            padding-left: 10px;
+        }
+
+        .trackPackageForm input[type=submit] {
+            width: 10%;
+            height: 45px;
+            background: #D44E15;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+
+        .trackPackageForm input[type=submit]:hover {
+            background: #f5672b;
+        }
+
+        .showErrorMessage {
+            color: white;
+            background: #e60202;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .showSuccessMessage {
+            color: white;
+            background: #007c00;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        /* CSS */
+        .status-list {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            margin-top: 20px;
+            display: none;
+        }
+
+        .status-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0 10px;
+        }
+
+        .status-icon {
+            font-size: 24px;
+            color: #FFFFFF;
+            margin-bottom: 8px;
+        }
+
+        .status-label {
+            text-align: center;
+            color: #FFFFFF;
+        }
+
+        .active .status-icon,
+        .active .status-label {
+            color: #D44E15;
+        }
+
+        .active .status-item {
+            font-weight: bold;
+            background-color: #D44E15;
+            border-radius: 5px;
+            padding: 5px 10px;
+        }
+
+        .gotoTrackPackageForm {
+            background: #D44E15;
+            color: white;
+            font-weight: 800;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- ===============================================-->
+    <!--    Main Content-->
+    <!-- ===============================================-->
+    <main class="main" id="top">
+        <section class="py-xxl-10 pb-6" id="home">
+        <div class="bg-holder bg-size"></div>
+        <!--/.bg-holder-->
+
+        <div class="container">
+            <div class="row align-items-center justify-content-center d-flex">
+                <div class="col-md-75 col-xl-6 col-xxl-5 text-center py-4">
+                    <h1 class="mb-3">Package Status</h1>
+                    {% if package %}
+                    <p><b>Sender name:</b> {{ package.senderName }}</p>
+                    <p><b>Sender Email:</b> {{ package.senderEmail }}</p>
+                    <p><b>Sender Phone number:</b> {{ package.senderPhone }}</p>
+                    <p><b>Sender Address:</b> {{ package.senderAddress }}</p>
+                    <p><b>Reciver's name:</b> {{ package.recipeintName }}</p>
+                    <p><b>Reciver's Phone number:</b> {{ package.recipeintPhone }}</p>
+                    <p><b>Reciver's Address:</b> {{ package.recipeintAddress }}</p>
+                    <p><b>Status:</b> {{ package.status }}</p>
+                    <!-- Add more package information as needed -->
+                    {% else %}
+                    <p>No package found with the provided tracking ID.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        </section>
+    </main>
+    <!-- ===============================================-->
+    <!--    End of Main Content-->
+    <!-- ===============================================-->
+
+    <!-- ===============================================-->
+    <!--    JavaScripts-->
+    <!-- ===============================================-->
+    <script src="{% static 'vendors/libs/jquery/dist/jquery.min.js' %}"></script>
+    <script src="{% static 'vendors/@popperjs/popper.min.js' %}"></script>
+    <script src="{% static 'vendors/libs/bootstrap/dist/js/bootstrap.bundle.min.js' %}"></script>
+
+    <script src="{% static 'vendors/bootstrap/bootstrap.min.js' %}"></script>
+    <script src="{% static 'vendors/is/is.min.js' %}"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=window.scroll"></script>
+    <script src="{% static 'vendors/fontawesome/all.min.js' %}"></script>
+    <script src="{% static 'assets/js/theme.js' %}"></script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@200;300;400;500;600;700;800&amp;display=swap"
+        rel="stylesheet" />
+</body>
+
+</html>

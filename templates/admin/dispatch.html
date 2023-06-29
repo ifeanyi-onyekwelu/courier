@@ -1,0 +1,272 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Modernize Free</title>
+  <link rel="shortcut icon" type="image/png" href="{% static  'assets/img/images/logos/favicon.png' %}" />
+  <link rel="stylesheet" href="{% static 'assets/css/styles.min.css' %}" />
+  <link rel="stylesheet" href="{% static 'vendors/libs/simplebar/dist/simplebar.css' %}" />
+  <link rel="stylesheet" href="{% static 'vendors/icons/tabler-icons/tabler-icons.css' %}" />
+  <style>
+    .logoutBtn {
+      border: 1px solid #D44E15;
+      color: #D44E15;
+    }
+
+    .logoutBtn:hover {
+      background: #D44E15;
+      color: white;
+    }
+  </style>
+</head>
+
+<body>
+  <!--  Body Wrapper -->
+  <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
+    data-sidebar-position="fixed" data-header-position="fixed">
+    <!-- Sidebar Start -->
+    <aside class="left-sidebar">
+      <!-- Sidebar scroll-->
+      <div>
+        <div class="brand-logo d-flex align-items-center justify-content-between">
+          <a href="{% url 'admin:dashboard' %}" class="text-nowrap logo-img">
+            <img src="{% static 'assets/img/gallery/logo.png' %}" width="180" alt="" />
+          </a>
+          <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
+            <i class="ti ti-x fs-8"></i>
+          </div>
+        </div>
+
+        <!-- Sidebar navigation-->
+        <nav class="sidebar-nav scroll-sidebar" data-simplebar="">
+          <ul id="sidebarnav">
+            <li class="nav-small-cap">
+              <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+              <span class="hide-menu">Home</span>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="{% url 'admin:dashboard' %}" aria-expanded="false">
+                <span>
+                  <i class="ti ti-layout-dashboard"></i>
+                </span>
+                <span class="hide-menu">Dashboard</span>
+              </a>
+            </li>
+            <li class="nav-small-cap">
+              <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+              <span class="hide-menu">STATUS</span>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="{% url 'admin:all_dispatch' %}" aria-expanded="false">
+                <span>
+                  <i class="ti ti-stack-3"></i>
+                </span>
+                <span class="hide-menu">All</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="{% url 'admin:all_packaging' %}" aria-expanded="false">
+                <span>
+                  <i class="ti ti-truck-loading"></i>
+                </span>
+                <span class="hide-menu">Packaging</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="{% url 'admin:all_in_transit' %}" aria-expanded="false">
+                <span>
+                  <i class="ti ti-truck-delivery"></i>
+                </span>
+                <span class="hide-menu">In transit</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="{% url 'admin:all_shipping' %}" aria-expanded="false">
+                <span>
+                  <i class="ti ti-ship"></i>
+                </span>
+                <span class="hide-menu">Shipping</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="{% url 'admin:all_delivered' %}" aria-expanded="false">
+                <span>
+                  <i class="ti ti-check"></i>
+                </span>
+                <span class="hide-menu">Delivered</span>
+              </a>
+            </li>
+            <li class="nav-small-cap">
+              <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+              <span class="hide-menu">OPTIONS</span>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="{% url 'admin:all_coupons' %}" aria-expanded="false">
+                <span>
+                  <i class="ti ti-barcode"></i>
+                </span>
+                <span class="hide-menu">Coupon</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+        <!-- End Sidebar navigation -->
+      </div>
+      <!-- End Sidebar scroll-->
+    </aside>
+    <!--  Sidebar End -->
+    <!--  Main wrapper -->
+    <div class="body-wrapper">
+      <!--  Header Start -->
+      <header class="app-header">
+        <nav class="navbar navbar-expand-lg navbar-light">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <form class="d-flex align-items-center" method="GET" action="{% url 'admin:all_dispatch' %}"
+                id="filter-form">
+                <select class="form-select form-select-sm me-2" name="month">
+                  <option value="">All Months</option>
+                  <option value="1">January</option>
+                  <option value="2">February</option>
+                  <option value="3">March</option>
+                  <option value="4">April</option>
+                  <option value="5">May</option>
+                  <option value="6">June</option>
+                  <option value="7">July</option>
+                  <option value="8">August</option>
+                  <option value="9">September</option>
+                  <option value="10">October</option>
+                  <option value="11">November</option>
+                  <option value="12">December</option>
+                  <!-- ...add more options for other months... -->
+                </select>
+                <select class="form-select form-select-sm me-2" name="year">
+                  <option value="">All Years</option>
+                  <option value="2022">2022</option>
+                  <option value="2023">2023</option>
+                  <option value="2023">2024</option>
+                  <option value="2023">2025</option>
+                  <!-- ...add more options for other years... -->
+                </select>
+                <input class="form-control form-control-sm me-2" type="search" name="query" placeholder="Search">
+                <button class="btn btn-sm btn-primary" type="submit">Filter/Search</button>
+              </form>
+            </li>
+          </ul>
+          <div class="navbar-collapse justify-content-end px-0" id="navbarNav">
+            <ul class="navbar-nav flex-row ms-auto align-items-center justify-content-end">
+              <li class="nav-item dropdown">
+                <a class="nav-link nav-icon-hover" href="javascript:void(0)" id="drop2" data-bs-toggle="dropdown"
+                  aria-expanded="false">
+                  <img src="{% static 'assets/img/icons/avatar.png' %}" alt="" width="35" height="35"
+                    class="rounded-circle">
+                </a>
+                <div class="dropdown-menu dropdown-menu-end dropdown-menu-animate-up" aria-labelledby="drop2">
+                  <div class="message-body">
+                    <a href="{% url 'admin:profile' %}" class="d-flex align-items-center gap-2 dropdown-item">
+                      <i class="ti ti-user fs-6"></i>
+                      <p class="mb-0 fs-3">My Profile</p>
+                    </a>
+                    <a href="{% url 'admin:logout' %}" class="btn mx-3 mt-2 d-block logoutBtn">Logout</a>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </nav>
+      </header>
+      <!--  Header End -->
+      <div class="container-fluid">
+        <div id="table-container">
+          <table class="table text-nowrap mb-0 align-middle">
+            <thead class="text-dark fs-4">
+              <tr>
+                <th class="border-bottom-0">
+                  <h6 class="fw-semibold mb-0">Sender</h6>
+                </th>
+                <th class="border-bottom-0">
+                  <h6 class="fw-semibold mb-0">Reciever</h6>
+                </th>
+                <th class="border-bottom-0">
+                  <h6 class="fw-semibold mb-0">Product</h6>
+                </th>
+                <th class="border-bottom-0">
+                  <h6 class="fw-semibold mb-0">Tracking ID</h6>
+                </th>
+                <th class="border-bottom-0">
+                  <h6 class="fw-semibold mb-0">Status</h6>
+                </th>
+                <th class="border-bottom-0">
+                  <h6 class="fw-semibold mb-0">Date</h6>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for dispatchedPackage in dispatchedPackages reversed %}
+              <tr>
+                <td class="border-bottom-0"><a href="{% url 'admin:dispatch' dispatchedPackage.id %}">
+                    {{ dispatchedPackage.senderName }}</a></td>
+                <td class="border-bottom-0">{{ dispatchedPackage.recipeintName }}</td>
+                <td class="border-bottom-0">{{ dispatchedPackage.product }}</td>
+                <td class="border-bottom-0">{{ dispatchedPackage.tracking_id }}</td>
+                <td class="border-bottom-0">{{ dispatchedPackage.status }}</td>
+                <td class="border-bottom-0">{{ dispatchedPackage.created_at }}</td>
+                {% empty %}
+                <td class="border-bottom-0">------</td>
+                <td class="border-bottom-0">------</td>
+                <td class="border-bottom-0">------</td>
+                <td class="border-bottom-0">------</td>
+                <td class="border-bottom-0">------</td>
+                <td class="border-bottom-0">------</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="{% static 'vendors/libs/jquery/dist/jquery.min.js' %}"></script>
+  <script src="{% static 'vendors/libs/bootstrap/dist/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'assets/js/sidebarmenu.js' %}"></script>
+  <script src="{% static 'assets/js/app.min.js' %}"></script>
+  <script src="{% static 'vendors/libs/apexcharts/dist/apexcharts.min.js' %}"></script>
+  <script src="{% static 'vendors/libs/simplebar/dist/simplebar.js' %}"></script>
+  <script src="{% static 'assets/js/dashboard.js' %}"></script>
+
+  <script>
+    $(document).ready(function () {
+      // Target the form by its ID
+      $('#filter-form').submit(function (event) {
+        event.preventDefault(); // Prevent the default form submission
+
+        // Serialize the form data
+        var formData = $(this).serialize();
+
+        // Send an Ajax request to update the table content
+        $.ajax({
+          url: $(this).attr('action'),
+          type: 'GET',
+          headers: {
+            'X-Requested-With': 'XMLHttpRequest' // Add the X-Requested-With header
+          },
+          data: formData,
+          success: function (response) {
+            // Update the table content with the response
+            $('#table-container').html(response);
+          },
+          error: function (xhr, status, error) {
+            // Handle any errors
+            console.log(error);
+          }
+        });
+      });
+    });
+  </script>
+
+</body>
+
+</html>

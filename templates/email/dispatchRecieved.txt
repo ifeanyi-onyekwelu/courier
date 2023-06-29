@@ -1,0 +1,7 @@
+Dear {senderName}
+
+Your courier form has been submitted.
+
+As soon as we package your parcel you will be notified.
+
+Thank you

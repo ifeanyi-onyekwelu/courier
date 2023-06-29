@@ -1,0 +1,369 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+  <title>Modernize Free</title>
+
+  <!-- Favicons -->
+  <link href="assets/img/favicon.png" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.gstatic.com" rel="preconnect">
+  <link
+    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+    rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="{% static 'vendors/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'vendors/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+  <link href="{% static 'vendors/boxicons/css/boxicons.min.css' %}" rel="stylesheet">
+  <link href="{% static 'vendors/quill/quill.snow.css' %}" rel="stylesheet">
+  <link href="{% static 'vendors/quill/quill.bubble.css' %}" rel="stylesheet">
+  <link href="{% static 'vendors/remixicon/remixicon.css' %}" rel="stylesheet">
+  <link href="{% static 'vendors/simple-datatables/style.css' %}" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'assets/css/styles.min.css' %}" />
+  <link rel="stylesheet" href="{% static 'vendors/libs/simplebar/dist/simplebar.css' %}" />
+  <link rel="stylesheet" href="{% static 'vendors/icons/tabler-icons/tabler-icons.css' %}" />
+
+  <!-- Template Main CSS File -->
+  <link href="{% static 'assets/css/profile.css' %}" rel="stylesheet">
+  <style>
+    .logoutBtn {
+      border: 1px solid #D44E15;
+      color: #D44E15;
+    }
+
+    .logoutBtn:hover {
+      background: #D44E15;
+      color: white;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ======= Header ======= -->
+  <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
+    data-sidebar-position="fixed" data-header-position="fixed">
+
+    <aside class="left-sidebar">
+      <!-- Sidebar scroll-->
+      <div>
+        <div class="brand-logo d-flex align-items-center justify-content-between">
+          <a href="{% url 'admin:dashboard' %}" class="text-nowrap logo-img">
+            <img src="{% static 'assets/img/gallery/logo.png' %}" width="180" alt="" />
+          </a>
+          <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
+            <i class="ti ti-x fs-8"></i>
+          </div>
+        </div>
+
+        <!-- Sidebar navigation-->
+        <nav class="sidebar-nav scroll-sidebar" data-simplebar="">
+          <ul id="sidebarnav">
+            <li class="nav-small-cap">
+              <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+              <span class="hide-menu">Home</span>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="{% url 'admin:dashboard' %}" aria-expanded="false">
+                <span>
+                  <i class="ti ti-layout-dashboard"></i>
+                </span>
+                <span class="hide-menu">Dashboard</span>
+              </a>
+            </li>
+            <li class="nav-small-cap">
+              <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+              <span class="hide-menu">STATUS</span>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="{% url 'admin:all_dispatch' %}" aria-expanded="false">
+                <span>
+                  <i class="ti ti-stack-3"></i>
+                </span>
+                <span class="hide-menu">All</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="{% url 'admin:all_packaging' %}" aria-expanded="false">
+                <span>
+                  <i class="ti ti-truck-loading"></i>
+                </span>
+                <span class="hide-menu">Packaging</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="{% url 'admin:all_in_transit' %}" aria-expanded="false">
+                <span>
+                  <i class="ti ti-truck-delivery"></i>
+                </span>
+                <span class="hide-menu">In transit</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="{% url 'admin:all_shipping' %}" aria-expanded="false">
+                <span>
+                  <i class="ti ti-ship"></i>
+                </span>
+                <span class="hide-menu">Shipping</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="{% url 'admin:all_delivered' %}" aria-expanded="false">
+                <span>
+                  <i class="ti ti-check"></i>
+                </span>
+                <span class="hide-menu">Delivered</span>
+              </a>
+            </li>
+            <li class="nav-small-cap">
+              <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+              <span class="hide-menu">OPTIONS</span>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="{% url 'admin:all_coupons' %}" aria-expanded="false">
+                <span>
+                  <i class="ti ti-barcode"></i>
+                </span>
+                <span class="hide-menu">Coupon</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+        <!-- End Sidebar navigation -->
+      </div>
+      <!-- End Sidebar scroll-->
+    </aside>
+
+    <div class="body-wrapper">
+      <header class="app-header">
+        <nav class="navbar navbar-expand-lg navbar-light">
+          <ul class="navbar-nav">
+            <li class="nav-item d-block d-xl-none">
+              <a class="nav-link sidebartoggler nav-icon-hover" id="headerCollapse" href="javascript:void(0)">
+                <i class="ti ti-menu-2"></i>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link nav-icon-hover" href="javascript:void(0)">
+                <i class="ti ti-bell-ringing"></i>
+                <div class="notification bg-primary rounded-circle"></div>
+              </a>
+            </li>
+          </ul>
+          <div class="navbar-collapse justify-content-end px-0" id="navbarNav">
+            <ul class="navbar-nav flex-row ms-auto align-items-center justify-content-end">
+              <li class="nav-item dropdown">
+                <a class="nav-link nav-icon-hover" href="javascript:void(0)" id="drop2" data-bs-toggle="dropdown"
+                  aria-expanded="false">
+                  <img src="{% static 'assets/img/icons/avatar.png' %}" alt="" width="35" height="35"
+                    class="rounded-circle">
+                </a>
+                <div class="dropdown-menu dropdown-menu-end dropdown-menu-animate-up" aria-labelledby="drop2">
+                  <div class="message-body">
+                    <a href="{% url 'admin:profile' %}" class="d-flex align-items-center gap-2 dropdown-item">
+                      <i class="ti ti-user fs-6"></i>
+                      <p class="mb-0 fs-3">My Profile</p>
+                    </a>
+                    <a href="{% url 'admin:logout' %}" class="btn mx-3 mt-2 d-block logoutBtn">Logout</a>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </nav>
+      </header>
+
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-lg-10">
+
+            <div class="card">
+              <div class="card-body pt-3">
+                <!-- Bordered Tabs -->
+                <ul class="nav nav-tabs nav-tabs-bordered">
+
+                  <li class="nav-item">
+                    <button class="nav-link active" data-bs-toggle="tab"
+                      data-bs-target="#profile-overview">Overview</button>
+                  </li>
+
+                  <li class="nav-item">
+                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-edit">Edit Profile</button>
+                  </li>
+
+                  <li class="nav-item">
+                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-change-password">Change
+                      Password</button>
+                  </li>
+
+                </ul>
+                <div class="tab-content pt-2">
+
+                  <div class="tab-pane fade show active profile-overview" id="profile-overview">
+                    <h4 class="card-title mb-2">Profile Details</h4>
+
+                    <div class="row mb-4">
+                      <div class="col-lg-3 col-md-4 label">Full Name</div>
+                      <div class="col-lg-9 col-md-8">{{ request.user.first_name }} {{ request.user.last_name }}</div>
+                    </div>
+
+                    <div class="row mb-4">
+                      <div class="col-lg-3 col-md-4 label">Username</div>
+                      <div class="col-lg-9 col-md-8">{{ request.user.username }}</div>
+                    </div>
+
+                    <div class="row mb-4">
+                      <div class="col-lg-3 col-md-4 label">Email</div>
+                      <div class="col-lg-9 col-md-8">{{ request.user.email }}</div>
+                    </div>
+
+                  </div>
+
+                  <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
+
+                    <!-- Profile Edit Form -->
+                    <form method="post" action="{% url 'admin:edit_profile' %}" id="editProfileForm">
+                      {% csrf_token %}
+                      <div class="row mb-3">
+                        <label for="firstName" class="col-md-4 col-lg-3 col-form-label">First Name</label>
+                        <div class="col-md-8 col-lg-9">
+                          <input name="firstName" type="text" class="form-control" id="firstName"
+                            value="{{ request.user.first_name }}">
+                        </div>
+                      </div>
+
+                      <div class="row mb-3">
+                        <label for="lastName" class="col-md-4 col-lg-3 col-form-label">Last Name</label>
+                        <div class="col-md-8 col-lg-9">
+                          <input name="lastName" type="text" class="form-control" id="lastName"
+                            value="{{ request.user.last_name }}">
+                        </div>
+                      </div>
+
+                      <div class="row mb-3">
+                        <label for="username" class="col-md-4 col-lg-3 col-form-label">Username</label>
+                        <div class="col-md-8 col-lg-9">
+                          <input name="username" type="text" class="form-control" id="username"
+                            value="{{ request.user.username }}">
+                        </div>
+                      </div>
+
+                      <div class="row mb-3">
+                        <label for="Email" class="col-md-4 col-lg-3 col-form-label">Email</label>
+                        <div class="col-md-8 col-lg-9">
+                          <input name="email" type="email" class="form-control" id="email"
+                            value="{{ request.user.email }}">
+                        </div>
+                      </div>
+
+                      <div class="text-center">
+                        <button type="submit" class="btn logoutBtn">Save Changes</button>
+                      </div>
+                    </form><!-- End Profile Edit Form -->
+
+                  </div>
+
+                  <div class="tab-pane fade pt-3" id="profile-change-password">
+                    <!-- Change Password Form -->
+                    <form method="post" action="{% url 'admin:change_password' %}" id="changePasswordForm">
+                      {% csrf_token %}
+                      <div class="row mb-3">
+                        <label for="currentPassword" class="col-md-4 col-lg-3 col-form-label">Current Password</label>
+                        <div class="col-md-8 col-lg-9">
+                          <input name="currentpassword" type="password" class="form-control" id="currentPassword">
+                        </div>
+                      </div>
+
+                      <div class="row mb-3">
+                        <label for="newPassword" class="col-md-4 col-lg-3 col-form-label">New Password</label>
+                        <div class="col-md-8 col-lg-9">
+                          <input name="newpassword" type="password" class="form-control" id="newPassword">
+                        </div>
+                      </div>
+
+                      <div class="row mb-3">
+                        <label for="renewPassword" class="col-md-4 col-lg-3 col-form-label">Re-enter New
+                          Password</label>
+                        <div class="col-md-8 col-lg-9">
+                          <input name="renewpassword" type="password" class="form-control" id="renewPassword">
+                        </div>
+                      </div>
+
+                      <div class="text-center">
+                        <button type="submit" class="btn logoutBtn">Change Password</button>
+                      </div>
+                    </form><!-- End Change Password Form -->
+
+                  </div>
+
+                </div><!-- End Bordered Tabs -->
+
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Vendor JS Files -->
+  <script src="{% static 'vendors/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'vendors/chart.js/chart.umd.js' %}"></script>
+  <script src="{% static 'vendors/quill/quill.min.js' %}"></script>
+  <script src="{% static 'vendors/simple-datatables/simple-datatables.js' %}"></script>
+  <script src="{% static 'vendors/libs/jquery/dist/jquery.min.js' %}"></script>
+  <script src="{% static 'assets/js/sidebarmenu.js' %}"></script>
+  <script src="{% static 'vendors/libs/simplebar/dist/simplebar.js' %}"></script>
+  <script src="{% static 'assets/js/dashboard.js' %}"></script>
+
+  <!-- Template Main JS File -->
+  <script src="{% static 'assets/js/main.js' %}"></script>
+
+  <script>
+
+    $(document).on('submit', '#editProfileForm', function (e) {
+
+      e.preventDefault();
+
+      $.ajax({
+        type: 'POST',
+        url: "{% url 'admin:edit_profile' %}",
+        data: {
+          firstName: $('#firstName').val(),
+          lastName: $('#lastName').val(),
+          username: $('#username').val(),
+          email: $('#email').val(),
+          csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
+        },
+      })
+    })
+
+    $(document).on('submit', '#changePasswordForm', function (e) {
+
+      e.preventDefault();
+
+      $.ajax({
+        type: 'POST',
+        url: "{% url 'admin:change_password' %}",
+        data: {
+          currentpassword: $('#currentPassword').val(),
+          newpassword: $('#newPassword').val(),
+          renewpassword: $('#renewPassword').val(),
+          csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
+        }
+      })
+    })
+
+  </script>
+
+</body>
+
+</html>

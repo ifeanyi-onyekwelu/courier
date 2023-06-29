@@ -1,0 +1,7 @@
+Dear {senderName}
+
+Your parcel has been successfully delivered.
+
+You can contact your recipient to confirm.
+
+Thank you

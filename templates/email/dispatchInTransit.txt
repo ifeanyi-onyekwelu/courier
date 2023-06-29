@@ -1,0 +1,5 @@
+Dear {senderName}
+
+Your parcel has been shipped and is in transit to the reciever.
+
+Thank you

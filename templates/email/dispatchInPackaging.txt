@@ -1,0 +1,5 @@
+Dear {senderName}
+
+Your parcel has been package and is out for shipping.
+
+Thank you

@@ -1,0 +1,1103 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>courier | Landing, Responsive &amp; Business Templatee</title>
+
+  <!-- ===============================================-->
+  <!--    Favicons-->
+  <!-- ===============================================-->
+  <link rel="apple-touch-icon" sizes="180x180" href="{% static 'assets/img/favicons/apple-touch-icon.png' %}" />
+  <link rel="icon" type="image/png" sizes="32x32" href="{% static 'assets/img/favicons/favicon-32x32.png' %}" />
+  <link rel="icon" type="image/png" sizes="16x16" href="{% static 'assets/img/favicons/favicon-16x16.png' %}" />
+  <link rel="shortcut icon" type="image/x-icon" href="{% static 'assets/img/favicons/favicon.ico' %}" />
+  <link rel="manifest" href="{% static 'assets/img/favicons/manifest.json' %}" />
+  <meta name="msapplication-TileImage" content="{% static 'assets/img/favicons/mstile-150x150.png' %}" />
+  <meta name="theme-color" content="#ffffff' " />
+  <link href="{% static 'assets/css/theme.css' %}" rel="stylesheet" />
+  <link rel="stylesheet" href="{% static 'vendors/icons/tabler-icons/tabler-icons.css' %}" />
+  <style>
+    .makeDelivery .form-group input {
+      width: 100%;
+      border: none;
+      outline: none;
+      border-radius: 3px;
+      font-size: 16px;
+      padding: 7px;
+    }
+
+    .makeDelivery ::placeholder {
+      color: #dfdfdf;
+    }
+
+    .makeDelivery .form-group {
+      margin-bottom: 5px;
+    }
+
+    .makeDelivery input[type=submit] {
+      width: 100%;
+      border: none;
+      text-transform: uppercase;
+      padding: 7px;
+      font-weight: 900;
+      background: #D44E15;
+      color: white;
+      border-radius: 2px;
+    }
+
+    .makeDelivery input[type=submit]:hover {
+      background: #f5672b;
+    }
+
+    .preferences {
+      display: flex;
+      gap: 10px;
+    }
+
+    .preferences input {
+      width: 50% !important;
+    }
+
+    .trackingID {
+      height: 40px;
+      display: none;
+      margin-bottom: 10px;
+    }
+
+    .form-div {
+      display: flex;
+      margin-top: 10px;
+      gap: 10px;
+      height: 100%;
+      margin-bottom: 20px;
+    }
+
+    .form-div #trackingIDInputContent {
+      width: 100%;
+      background-color: white;
+      color: black;
+      height: 100%;
+      border-radius: 3px;
+      font-size: 16px;
+      padding: 7px;
+    }
+
+    .form-div span {
+      height: 40px;
+      padding: 10px 10px;
+      border-radius: 5px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, .1);
+      background: #fff;
+      cursor: pointer;
+    }
+
+    .form-div span:hover {
+      background: #D44E15;
+      color: white;
+    }
+
+    .error {
+      background: red;
+      color: white;
+    }
+
+    .form-weight {
+      width: 100%;
+    }
+
+    .form-height {
+      width: 100%;
+    }
+
+    .form-height input,
+    .form-weight input {
+      width: 100% !important;
+    }
+
+    .trackPackageForm {
+      margin-top: 20px;
+    }
+
+    .trackPackageForm input[type=text] {
+      width: 80%;
+      height: 45px;
+      border: none;
+      outline-color: #D44E15;
+      border-radius: 5px;
+      padding-left: 10px;
+    }
+
+    .trackPackageForm input[type=submit] {
+      width: 10%;
+      height: 45px;
+      background: #D44E15;
+      color: white;
+      border: none;
+      border-radius: 5px;
+    }
+
+    .trackPackageForm input[type=submit]:hover {
+      background: #f5672b;
+    }
+
+    .showErrorMessage {
+      color: white;
+      background: #e60202;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .showSuccessMessage {
+      color: white;
+      background: #007c00;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    /* CSS */
+    .status-list {
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+      margin-top: 20px;
+      display: none;
+    }
+
+    .status-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 0 10px;
+    }
+
+    .status-icon {
+      font-size: 24px;
+      color: #FFFFFF;
+      margin-bottom: 8px;
+    }
+
+    .status-label {
+      text-align: center;
+      color: #FFFFFF;
+    }
+
+    .active .status-icon,
+    .active .status-label {
+      color: #D44E15;
+    }
+
+    .active .status-item {
+      font-weight: bold;
+      background-color: #D44E15;
+      border-radius: 5px;
+      padding: 5px 10px;
+    }
+
+    .gotoTrackPackageForm {
+      background: #D44E15;
+      color: white;
+      font-weight: 800;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- ===============================================-->
+  <!--    Main Content-->
+  <!-- ===============================================-->
+  <main class="main" id="top">
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3 d-block"
+      data-navbar-on-scroll="data-navbar-on-scroll">
+      <div class="container">
+        <a class="navbar-brand" href="index.html"><img src="{% static 'assets/img/gallery/logo.png' %}" height="45"
+            alt="logo" /></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"> </span>
+        </button>
+        <div class="collapse navbar-collapse border-top border-lg-0 mt-4 mt-lg-0" id="navbarSupportedContent">
+          <ul class="navbar-nav ms-auto pt-2 pt-lg-0 font-base">
+            <li class="nav-item px-2">
+              <a class="nav-link" aria-current="page" href="index.html">Home</a>
+            </li>
+            <li class="nav-item px-2">
+              <a class="nav-link" href="#services">Our Services</a>
+            </li>
+            <li class="nav-item px-2">
+              <a class="nav-link" href="#dispatch_parcel">Dispatch A Product</a>
+            </li>
+            <li class="nav-item px-2">
+              <a class="nav-link" href="#findUs">Find Us</a>
+            </li>
+          </ul>
+          <div class="dropdown d-none d-lg-block">
+            <button class="btn bg-soft-warning ms-2" id="dropdownMenuButton1" type="submit" data-bs-toggle="dropdown"
+              aria-expanded="false">
+              <i class="fas fa-search text-warning"></i>
+            </button>
+            <div class="dropdown-menu dropdown-menu-lg-end p-0 rounded" aria-labelledby="dropdownMenuButton1"
+              style="top: 55px">
+              <form>
+                <input class="form-control border-200" type="search" placeholder="Search" aria-label="Search"
+                  style="background: #fdf1df" />
+              </form>
+            </div>
+          </div>
+          <a class="btn btn-primary order-1 order-lg-0 ms-lg-3" href="#contactUs">Contact Us</a>
+          <form class="d-flex my-3 d-block d-lg-none">
+            {% csrf_token %}
+            <input class="form-control me-2 border-200 bg-light" type="search" placeholder="Search"
+              aria-label="Search" />
+            <button class="btn btn-outline-primary" type="submit">
+              Search
+            </button>
+          </form>
+        </div>
+      </div>
+    </nav>
+
+    <section class="py-xxl-10 pb-0" id="home" style="background: khaki;">
+      <div class="bg-holder bg-size"></div>
+      <!--/.bg-holder-->
+
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-md-5 col-xl-6 col-xxl-7 order-0 order-md-1 text-end">
+            <img class="pt-7 pt-md-0 w-100" src="{% static 'assets/img/illustrations/hero.png' %}" alt="hero-header" />
+          </div>
+          <div class="col-md-75 col-xl-6 col-xxl-5 text-md-start text-center py-8">
+            <h1 class="fw-normal fs-6 fs-xxl-7">A reliable source for</h1>
+            <h1 class="fw-bolder fs-6 fs-xxl-7 mb-2">delivery solutions.</h1>
+            <form action="{% url 'app:track_package' %}" method="post" class="trackPackageForm" id="trackPackageForm">
+              {% csrf_token %}
+              <div class="form-group">
+                <input type="text" name="trackingID" id="trackingID" placeholder="Tracking Id">
+                <input type="submit" value="Track">
+              </div>
+            </form>
+            <!-- HTML -->
+            <ul class="status-list">
+              <li class="status-item {% if package.status == 'Processing' %}active{% endif %}">
+                <span class="status-icon"><i class="fas fa-cog"></i></span>
+                <span class="status-label">Processing</span>
+              </li>
+              <li class="status-item {% if package.status == 'Packaging' %}active{% endif %}">
+                <span class="status-icon"><i class="fas fa-box"></i></span>
+                <span class="status-label">Packaging</span>
+              </li>
+              <li class="status-item {% if package.status == 'Shipping' %}active{% endif %}">
+                <span class="status-icon"><i class="fas fa-ship"></i></span>
+                <span class="status-label">Shipping</span>
+              </li>
+              <li class="status-item {% if package.status == 'In Transit' %}active{% endif %}">
+                <span class="status-icon"><i class="fas fa-truck"></i></span>
+                <span class="status-label">In Transit</span>
+              </li>
+              <li class="status-item {% if package.status == 'Delivered' %}active{% endif %}">
+                <span class="status-icon"><i class="fas fa-check-circle"></i></span>
+                <span class="status-label">Delivered</span>
+              </li>
+            </ul>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================-->
+    <!-- <section> begin ============================-->
+    <section class="py-7" id="services" container-xl="container-xl">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-md-8 col-lg-5 text-center mb-3">
+            <h5 class="text-danger">SERVICES</h5>
+            <h2>Reliable Solutions for Your Delivery Needs</h2>
+          </div>
+        </div>
+        <div class="row h-100 justify-content-center">
+          <div class="col-md-4 pt-4 px-md-2 px-lg-3">
+            <div class="card h-100 px-lg-5 card-span">
+              <div class="card-body d-flex flex-column justify-content-around">
+                <div class="text-center pt-5">
+                  <img class="img-fluid" src="{% static 'assets/img/icons/services-1.svg' %}" alt="..."
+                    style="color: khaki;" />
+                  <h5 class="my-4">Home Delivery Excellence</h5>
+                </div>
+                <p>
+                  Experience our exceptional home delivery service, ensuring your packages reach your doorstep swiftly
+                  and securely. With our efficient logistics network.
+                </p>
+                <ul class="list-unstyled">
+                  <li class="mb-2">
+                    <span class="me-2"><i class="fas fa-circle text-primary"
+                        style="font-size: 0.5rem"></i></span>Corporate Logistics Mastery
+                  </li>
+                  <li class="mb-2">
+                    <span class="me-2"><i class="fas fa-circle text-primary" style="font-size: 0.5rem"></i></span>Swift
+                    and Secure Deliveries
+                  </li>
+                  <li class="mb-2">
+                    <span class="me-2"><i class="fas fa-circle text-primary"
+                        style="font-size: 0.5rem"></i></span>Accessory Express
+                  </li>
+                </ul>
+                <div class="text-center my-5">
+                  <div class="d-grid">
+                    <button class="btn btn-outline-danger" type="submit">
+                      Learn more
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 pt-4 px-md-2 px-lg-3">
+            <div class="card h-100 px-lg-5 card-span">
+              <div class="card-body d-flex flex-column justify-content-around">
+                <div class="text-center pt-5">
+                  <img class="img-fluid" src="{% static 'assets/img/icons/services-2.svg' %}" alt="..." />
+                  <h5 class="my-4">Corporate Shipment Expertise</h5>
+                </div>
+                <p>
+                  Trust us with your corporate goods shipment requirements. Our dedicated team specializes in handling
+                  corporate deliveries.
+                </p>
+                <ul class="list-unstyled">
+                  <li class="mb-2">
+                    <span class="me-2"><i class="fas fa-circle text-primary" style="font-size: 0.5rem"></i></span>Secure
+                    Parcel Handling
+                  </li>
+                  <li class="mb-2">
+                    <span class="me-2"><i class="fas fa-circle text-primary" style="font-size: 0.5rem"></i></span>Global
+                    Shipping Expertise
+                  </li>
+                  <li class="mb-2">
+                    <span class="me-2"><i class="fas fa-circle text-primary" style="font-size: 0.5rem"></i></span>Yes
+                    Warehousing Solutions
+                  </li>
+                </ul>
+                <div class="text-center my-5">
+                  <div class="d-grid">
+                    <button class="btn btn-danger hover-top btn-glow border-0" type="submit">
+                      Learn more
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 pt-4 px-md-2 px-lg-3">
+            <div class="card h-100 px-lg-5 card-span">
+              <div class="card-body d-flex flex-column justify-content-around">
+                <div class="text-center pt-5">
+                  <img class="img-fluid" src="{% static 'assets/img/icons/services-3.svg' %}" alt="..." />
+                  <h5 class="my-4">Accessory Delivery Convenience</h5>
+                </div>
+                <p>
+                  Need accessories delivered? Look no further! Our convenient accessory delivery service ensures that
+                  your items are promptly delivered.
+                </p>
+                <ul class="list-unstyled">
+                  <li class="mb-2">
+                    <span class="me-2"><i class="fas fa-circle text-primary"
+                        style="font-size: 0.5rem"></i></span>Unlimited Bandwidth
+                  </li>
+                  <li class="mb-2">
+                    <span class="me-2"><i class="fas fa-circle text-primary"
+                        style="font-size: 0.5rem"></i></span>Encrypted Connection
+                  </li>
+                  <li class="mb-2">
+                    <span class="me-2"><i class="fas fa-circle text-primary" style="font-size: 0.5rem"></i></span>Yes
+                    Traffic Logs
+                  </li>
+                </ul>
+                <div class="text-center my-5">
+                  <div class="d-grid">
+                    <button class="btn btn-outline-danger" type="submit">
+                      Learn more
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- end of .container-->
+    </section>
+    <!-- <section> close ============================-->
+    <!-- ============================================-->
+
+    <!-- ============================================-->
+    <!-- <section> begin ============================-->
+    <section class="pt-7 pb-0">
+      <div class="container">
+        <div class="row">
+          <div class="col-6 col-lg mb-5">
+            <div class="text-center">
+              <img src="{% static 'assets/img/icons/awards.png' %}" alt="..." />
+              <h1 class="text-primary mt-4">26+</h1>
+              <h5 class="text-800">Awards won</h5>
+            </div>
+          </div>
+          <div class="col-6 col-lg mb-5">
+            <div class="text-center">
+              <img src="{% static 'assets/img/icons/states.png' %}" alt="..." />
+              <h1 class="text-primary mt-4">65+</h1>
+              <h5 class="text-800">States covered</h5>
+            </div>
+          </div>
+          <div class="col-6 col-lg mb-5">
+            <div class="text-center">
+              <img src="{% static 'assets/img/icons/clients.png' %}" alt="..." />
+              <h1 class="text-primary mt-4">689K+</h1>
+              <h5 class="text-800">Happy clients</h5>
+            </div>
+          </div>
+          <div class="col-6 col-lg mb-5">
+            <div class="text-center">
+              <img src="{% static 'assets/img/icons/goods.png' %}" alt="..." />
+              <h1 class="text-primary mt-4">130M+</h1>
+              <h5 class="text-800">Goods delivered</h5>
+            </div>
+          </div>
+          <div class="col-6 col-lg mb-5">
+            <div class="text-center">
+              <img src="{% static 'assets/img/icons/business.png' %}" alt="..." />
+              <h1 class="text-primary mt-4">130M+</h1>
+              <h5 class="text-800">Business hours</h5>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- end of .container-->
+    </section>
+    <!-- <section> close ============================-->
+    <!-- ============================================-->
+
+    <!-- ============================================-->
+    <!-- <section> begin ============================-->
+    <section id="dispatch_parcel">
+      <div class="container">
+        <div class="row justify-content-center d-flex">
+          <div class="col-8">
+            <h2>Dispatch Your Parcel: Streamlined Courier Shipment Form</h4>
+              <form method="post" class="makeDelivery" action="{% url 'app:dispatch_parcel' %}" id="parcelAddForm">
+                {% csrf_token %}
+                <div class="form-group">
+                  <input type="text" name="senderName" id="senderName" placeholder="Sender's name">
+                </div>
+                <div class="form-group">
+                  <input type="email" name="senderEmail" id="senderEmail" placeholder="Sender email">
+                </div>
+                <div class="form-group">
+                  <input type="text" name="senderPhone" id="senderPhone" placeholder="Sender phone">
+                </div>
+                <div class="form-group">
+                  <input type="text" name="senderAddress" id="senderAddress" placeholder="Sender address">
+                </div>
+                <div class="form-group">
+                  <input type="text" name="recipientName" id="recipientName" placeholder="Reciever's name">
+                </div>
+                <div class="form-group">
+                  <input type="text" name="recipientPhone" id="recipientPhone" placeholder="Reciever's phone"
+                    value="{{ createdPackage }}">
+                </div>
+                <div class="form-group">
+                  <input type="text" name="recipientAddress" id="recipientAddress" placeholder="Reciever's Address">
+                </div>
+                <div class="form-group">
+                  <input type="text" name="product" id="product" placeholder="Product e.g Table">
+                </div>
+                <div class="form-group preferences">
+                  <div class="form-weight">
+                    <input type="number" name="weight" id="weight" placeholder="Weight in kg">
+                  </div>
+                  <div class="form-height">
+                    <input type="number" name="height" id="height" placeholder="Height in cm">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <input type="text" name="additionalDetails" id="additionalDetails" placeholder="Additional comments">
+                </div>
+                <div class="form-group">
+                  <input type="text" name="coupon" id="coupon" placeholder="Coupon">
+                  <span>Don't have one? <a href="">Get one here</a></span>
+                </div>
+                <div class="form-group">
+                  <input type="text" name="deliveryLocation" id="deliveryLocation" placeholder="Delivery Location">
+                </div>
+                <div id="errorMessage" class="showErrorMessage hidden"></div>
+                <div id="successMessage" class="showSuccessMessage hidden"></div>
+                <input type="submit" value="Send" id="sendBtn">
+                <div class="trackingID">
+                  <div class="form-div">
+                    <span class="ti ti-layers-subtract" id="copyTrakingId"></span>
+                    <div id="trackingIDInputContent"></div>
+                  </div>
+                  <span>Copy your tracking id. <a href="#top" class="btn gotoTrackPackageForm">Track package</a></span>
+                </div>
+              </form>
+          </div>
+        </div>
+      </div>
+      <!-- end of .container-->
+    </section>
+    <!-- <section> close ============================-->
+    <!-- ============================================-->
+
+    <!-- ============================================-->
+    <!-- <section> begin ============================-->
+    <section class="py-7" style="background: khaki;">
+      <div class="container-fluid">
+        <div class="row flex-center">
+          <div class="bg-holder bg-size" style="
+                background-image: url(assets/img/gallery/quote.png);
+                background-position: top;
+                background-size: auto;
+                margin-left: -270px;
+                margin-top: -45px;
+              "></div>
+          <!--/.bg-holder-->
+
+          <div class="col-md-8 col-lg-5 text-center">
+            <h5 class="text-danger">TESTIMONIAL</h5>
+            <h2>Our Awesome Clients</h2>
+          </div>
+        </div>
+        <div class="carousel slide pt-6" id="carouselExampleDark" data-bs-ride="carousel">
+          <div class="carousel-inner">
+            <div class="carousel-item active" data-bs-interval="10000">
+              <div class="row h-100">
+                <div class="col-md-4 mb-3 mb-md-0">
+                  <div class="card h-100 card-span p-3">
+                    <div class="card-body">
+                      <h5 class="mb-0 text-primary">Impressive Delivery Speed and Excellent Service</h5>
+                      <p class="card-text pt-3">
+                        I recently had the pleasure of using this courier service for the delivery of an important
+                        package. I must say, their efficiency and dedication truly exceeded my expectations. I had
+                        ordered a time-sensitive document that needed to reach its destination promptly.
+                      </p>
+                      <div class="d-xl-flex justify-content-between align-items-center">
+                        <div class="d-flex align-items-center mb-3">
+                          <i class="fas fa-star text-primary me-1"></i><i class="fas fa-star text-primary me-1"></i><i
+                            class="fas fa-star text-primary me-1"></i><i class="fas fa-star text-primary me-1"></i><i
+                            class="fas fa-star text-primary me-1"></i>
+                        </div>
+                        <div class="d-flex align-items-center">
+                          <img class="img-fluid" src="{% static 'assets/img/icons/avatar.png' %}" alt="" />
+                          <div class="flex-1 ms-3">
+                            <h6 class="mb-0 fs--1 text-1000 fw-medium">
+                              Luna Everly
+                            </h6>
+                            <p class="fs--2 fw-normal mb-0">
+                              Marketing Specialist
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4 mb-3 mb-md-0">
+                  <div class="card h-100 card-span p-3">
+                    <div class="card-body">
+                      <h5 class="mb-0 text-primary">Delivering Excellence</h5>
+                      <p class="card-text pt-3">I recently ordered a laptop from an online store and decided to use this
+                        courier service for
+                        the delivery. I must say, I was pleasantly surprised by the exceptional service I received. The
+                        courier promptly picked up my package from the seller and delivered it to my doorstep in just a
+                        matter of hours.
+                      </p>
+                      <div class="d-xl-flex justify-content-between align-items-center">
+                        <div class="d-flex align-items-center mb-3">
+                          <i class="fas fa-star text-primary me-1"></i><i class="fas fa-star text-primary me-1"></i><i
+                            class="fas fa-star text-primary me-1"></i><i class="fas fa-star text-primary me-1"></i><i
+                            class="fas fa-star text-primary me-1"></i>
+                        </div>
+                        <div class="d-flex align-items-center">
+                          <img class="img-fluid" src="{% static 'assets/img/icons/avatar.png' %}" alt="" />
+                          <div class="flex-1 ms-3">
+                            <h6 class="mb-0 fs--1 text-1000 fw-medium">
+                              Eleanor Sinclair
+                            </h6>
+                            <p class="fs--2 fw-normal mb-0">
+                              Administrative Assistant
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4 mb-3 mb-md-0">
+                  <div class="card h-100 card-span p-3">
+                    <div class="card-body">
+                      <h5 class="mb-0 text-primary">Fantastic service!</h5>
+                      <p class="card-text pt-3">
+                        I purchased a phone from an e-commerce site, and this
+                        courier service provider assisted me in getting it
+                        delivered to my home. I received my phone within one
+                        day, and I was really satisfied with their service
+                        when I received it. .
+                      </p>
+                      <div class="d-xl-flex justify-content-between align-items-center">
+                        <div class="d-flex align-items-center mb-3">
+                          <i class="fas fa-star text-primary me-1"></i><i class="fas fa-star text-primary me-1"></i><i
+                            class="fas fa-star text-primary me-1"></i><i class="fas fa-star text-primary me-1"></i><i
+                            class="fas fa-star text-primary me-1"></i>
+                        </div>
+                        <div class="d-flex align-items-center">
+                          <img class="img-fluid" src="{% static 'assets/img/icons/avatar.png' %}" alt="" />
+                          <div class="flex-1 ms-3">
+                            <h6 class="mb-0 fs--1 text-1000 fw-medium">
+                              Yves Tanguy
+                            </h6>
+                            <p class="fs--2 fw-normal mb-0">
+                              Chief Executive, DLF
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="carousel-item" data-bs-interval="2000">
+              <div class="row h-100">
+                <div class="col-md-4 mb-3 mb-md-0">
+                  <div class="card h-100 card-span p-3">
+                    <div class="card-body">
+                      <h5 class="mb-0 text-primary">Fantastic service!</h5>
+                      <p class="card-text pt-3">
+                        I purchased a phone from an e-commerce site, and this
+                        courier service provider assisted me in getting it
+                        delivered to my home. I received my phone within one
+                        day, and I was really satisfied with their service
+                        when I received it.
+                      </p>
+                      <div class="d-xl-flex justify-content-between align-items-center">
+                        <div class="d-flex align-items-center mb-3">
+                          <i class="fas fa-star text-primary me-1"></i><i class="fas fa-star text-primary me-1"></i><i
+                            class="fas fa-star text-primary me-1"></i><i class="fas fa-star text-primary me-1"></i><i
+                            class="fas fa-star text-primary me-1"></i>
+                        </div>
+                        <div class="d-flex align-items-center">
+                          <img class="img-fluid" src="{% static 'assets/img/icons/avatar.png' %}" alt="" />
+                          <div class="flex-1 ms-3">
+                            <h6 class="mb-0 fs--1 text-1000 fw-medium">
+                              Yves Tanguy
+                            </h6>
+                            <p class="fs--2 fw-normal mb-0">
+                              Chief Executive, DLF
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4 mb-3 mb-md-0">
+                  <div class="card h-100 card-span p-3">
+                    <div class="card-body">
+                      <h5 class="mb-0 text-primary">Fantastic service!</h5>
+                      <p class="card-text pt-3">
+                        I purchased a phone from an e-commerce site, and this
+                        courier service provider assisted me in getting it
+                        delivered to my home. I received my phone within one
+                        day, and I was really satisfied with their service
+                        when I received it. .
+                      </p>
+                      <div class="d-xl-flex justify-content-between align-items-center">
+                        <div class="d-flex align-items-center mb-3">
+                          <i class="fas fa-star text-primary me-1"></i><i class="fas fa-star text-primary me-1"></i><i
+                            class="fas fa-star text-primary me-1"></i><i class="fas fa-star text-primary me-1"></i><i
+                            class="fas fa-star text-primary me-1"></i>
+                        </div>
+                        <div class="d-flex align-items-center">
+                          <img class="img-fluid" src="{% static 'assets/img/icons/avatar.png' %}" alt="" />
+                          <div class="flex-1 ms-3">
+                            <h6 class="mb-0 fs--1 text-1000 fw-medium">
+                              Yves Tanguy
+                            </h6>
+                            <p class="fs--2 fw-normal mb-0">
+                              Chief Executive, DLF
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="carousel-item">
+              <div class="row h-100">
+                <div class="col-md-4 mb-3 mb-md-0">
+                  <div class="card h-100 card-span p-3">
+                    <div class="card-body">
+                      <h5 class="mb-0 text-primary">Fantastic service!</h5>
+                      <p class="card-text pt-3">
+                        I purchased a phone from an e-commerce site, and this
+                        courier service provider assisted me in getting it
+                        delivered to my home. I received my phone within one
+                        day, and I was really satisfied with their service
+                        when I received it.
+                      </p>
+                      <div class="d-xl-flex justify-content-between align-items-center">
+                        <div class="d-flex align-items-center mb-3">
+                          <i class="fas fa-star text-primary me-1"></i><i class="fas fa-star text-primary me-1"></i><i
+                            class="fas fa-star text-primary me-1"></i><i class="fas fa-star text-primary me-1"></i><i
+                            class="fas fa-star text-primary me-1"></i>
+                        </div>
+                        <div class="d-flex align-items-center">
+                          <img class="img-fluid" src="{% static 'assets/img/icons/avatar.png' %}" alt="" />
+                          <div class="flex-1 ms-3">
+                            <h6 class="mb-0 fs--1 text-1000 fw-medium">
+                              Yves Tanguy
+                            </h6>
+                            <p class="fs--2 fw-normal mb-0">
+                              Chief Executive, DLF
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4 mb-3 mb-md-0">
+                  <div class="card h-100 card-span p-3">
+                    <div class="card-body">
+                      <h5 class="mb-0 text-primary">Fantastic service!</h5>
+                      <p class="card-text pt-3">
+                        “I purchased a phone from an e-commerce site, and this
+                        courier service provider assisted me in getting it
+                        delivered to my home. I received my phone within one
+                        day, and I was really satisfied with their service
+                        when I received it.
+                      </p>
+                      <div class="d-xl-flex justify-content-between align-items-center">
+                        <div class="d-flex align-items-center mb-3">
+                          <i class="fas fa-star text-primary me-1"></i><i class="fas fa-star text-primary me-1"></i><i
+                            class="fas fa-star text-primary me-1"></i><i class="fas fa-star text-primary me-1"></i><i
+                            class="fas fa-star text-primary me-1"></i>
+                        </div>
+                        <div class="d-flex align-items-center">
+                          <img class="img-fluid" src="{% static 'assets/img/icons/avatar.png' %}" alt="" />
+                          <div class="flex-1 ms-3">
+                            <h6 class="mb-0 fs--1 text-1000 fw-medium">
+                              Kim Young Jou
+                            </h6>
+                            <p class="fs--2 fw-normal mb-0">
+                              Chief Executive, DLF
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4 mb-3 mb-md-0">
+                  <div class="card h-100 card-span p-3">
+                    <div class="card-body">
+                      <h5 class="mb-0 text-primary">Fantastic service!</h5>
+                      <p class="card-text pt-3">
+                        I purchased a phone from an e-commerce site, and this
+                        courier service provider assisted me in getting it
+                        delivered to my home. I received my phone within one
+                        day, and I was really satisfied with their service
+                        when I received it. .
+                      </p>
+                      <div class="d-xl-flex justify-content-between align-items-center">
+                        <div class="d-flex align-items-center mb-3">
+                          <i class="fas fa-star text-primary me-1"></i><i class="fas fa-star text-primary me-1"></i><i
+                            class="fas fa-star text-primary me-1"></i><i class="fas fa-star text-primary me-1"></i><i
+                            class="fas fa-star text-primary me-1"></i>
+                        </div>
+                        <div class="d-flex align-items-center">
+                          <img class="img-fluid" src="{% static 'assets/img/icons/avatar.png' %}" alt="" />
+                          <div class="flex-1 ms-3">
+                            <h6 class="mb-0 fs--1 text-1000 fw-medium">
+                              Yves Tanguy
+                            </h6>
+                            <p class="fs--2 fw-normal mb-0">
+                              Chief Executive, DLF
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row px-3 px-md-0 mt-6">
+            <div class="col-12 position-relative">
+              <ol class="carousel-indicators">
+                <li class="active" data-bs-target="#carouselExampleDark" data-bs-slide-to="0"></li>
+                <li data-bs-target="#carouselExampleDark" data-bs-slide-to="1"></li>
+                <li data-bs-target="#carouselExampleDark" data-bs-slide-to="2"></li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- end of .container-->
+    </section>
+    <!-- <section> close ============================-->
+    <!-- ============================================-->
+
+    <!-- ============================================-->
+    <!-- <section> begin ============================-->
+    <section id="contactUs">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-md-6 col-lg-5 col-xl-4">
+            <img src="{% static 'assets/img/illustrations/callback.png' %}" alt="..." />
+            <h5 class="text-danger">REQUEST A CALLBACK</h5>
+            <h2>We will contact in the shortest time.</h2>
+          </div>
+          <div class="col-md-6 col-lg-5 col-xl-4">
+            <form class="row" method="post" action="sendMessage/">
+              {% csrf_token %}
+              <div class="mb-3">
+                <label class="form-label visually-hidden" for="inputName">Name</label>
+                <input class="form-control form-quriar-control" id="inputName" type="text" placeholder="Name" />
+              </div>
+              <div class="mb-3">
+                <label class="form-label visually-hidden" for="inputEmail">Another label</label>
+                <input class="form-control form-quriar-control" id="inputEmail" type="email" placeholder="Email" />
+              </div>
+              <div class="mb-5">
+                <label class="form-label visually-hidden" for="validationTextarea">Message</label>
+                <textarea class="form-control form-quriar-control is-invalid border-400" id="validationTextarea"
+                  placeholder="Message" style="height: 150px" required="required"></textarea>
+              </div>
+              <div class="d-grid">
+                <button class="btn btn-primary" type="submit">
+                  Send Message<i class="fas fa-paper-plane ms-2"></i>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <!-- end of .container-->
+    </section>
+    <!-- <section> close ============================-->
+    <!-- ============================================-->
+
+    <!-- ============================================-->
+    <!-- <section> begin ============================-->
+    <section class="bg-900 pb-0 pt-5">
+      <div class="container">
+        <div class="row">
+          <div class="col-12 col-sm-12 col-lg-6 mb-4 order-0 order-sm-0">
+            <a class="text-decoration-none" href="#"><img src="{% static 'assets/img/gallery/footer-logo.png' %}"
+                height="51" alt="" /></a>
+            <p class="text-500 my-4">
+              The most trusted Courier<br />company in your area.
+            </p>
+          </div>
+          <div class="col-6 col-sm-4 col-lg-2 mb-3 order-2 order-sm-1">
+            <h5 class="lh-lg fw-bold mb-4 text-light font-sans-serif">
+              Other links
+            </h5>
+            <ul class="list-unstyled mb-md-4 mb-lg-0">
+              <li class="lh-lg"><a class="text-500" href="#!">Blogs</a></li>
+              <li class="lh-lg">
+                <a class="text-500" href="#!">Movers website</a>
+              </li>
+              <li class="lh-lg">
+                <a class="text-500" href="#!">Traffic Update</a>
+              </li>
+            </ul>
+          </div>
+          <div class="col-6 col-sm-4 col-lg-2 mb-3 order-3 order-sm-2">
+            <h5 class="lh-lg fw-bold text-light mb-4 font-sans-serif">
+              Services
+            </h5>
+            <ul class="list-unstyled mb-md-4 mb-lg-0">
+              <li class="lh-lg">
+                <a class="text-500" href="#!">Corporate goods</a>
+              </li>
+              <li class="lh-lg">
+                <a class="text-500" href="#!">Artworks</a>
+              </li>
+              <li class="lh-lg">
+                <a class="text-500" href="#!">Documents</a>
+              </li>
+            </ul>
+          </div>
+          <div class="col-6 col-sm-4 col-lg-2 mb-3 order-3 order-sm-2">
+            <h5 class="lh-lg fw-bold text-light mb-4 font-sans-serif">
+              Customer Care
+            </h5>
+            <ul class="list-unstyled mb-md-4 mb-lg-0">
+              <li class="lh-lg">
+                <a class="text-500" href="#!">About Us</a>
+              </li>
+              <li class="lh-lg">
+                <a class="text-500" href="#!">Contact US</a>
+              </li>
+              <li class="lh-lg">
+                <a class="text-500" href="#!">Get Update</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <!-- end of .container-->
+    </section>
+    <!-- <section> close ============================-->
+    <!-- ============================================-->
+
+    <!-- ============================================-->
+    <!-- <section> begin ============================-->
+    <section class="py-0 bg-1000">
+      <div class="container">
+        <div class="row justify-content-md-between justify-content-evenly py-4">
+          <div class="col-12 col-sm-8 col-md-6 col-lg-auto text-center text-md-start">
+            <p class="fs--1 my-2 fw-bold text-200">
+              All rights Reserved &copy; Your Company, 2023
+            </p>
+          </div>
+        </div>
+      </div>
+      <!-- end of .container-->
+    </section>
+    <!-- <section> close ============================-->
+    <!-- ============================================-->
+  </main>
+  <!-- ===============================================-->
+  <!--    End of Main Content-->
+  <!-- ===============================================-->
+
+  <!-- ===============================================-->
+  <!--    JavaScripts-->
+  <!-- ===============================================-->
+  <script src="{% static 'vendors/libs/jquery/dist/jquery.min.js' %}"></script>
+  <script src="{% static 'vendors/@popperjs/popper.min.js' %}"></script>
+  <script src="{% static 'vendors/libs/bootstrap/dist/js/bootstrap.bundle.min.js' %}"></script>
+
+  <script src="{% static 'vendors/bootstrap/bootstrap.min.js' %}"></script>
+  <script src="{% static 'vendors/is/is.min.js' %}"></script>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=window.scroll"></script>
+  <script src="{% static 'vendors/fontawesome/all.min.js' %}"></script>
+  <script src="{% static 'assets/js/theme.js' %}"></script>
+
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@200;300;400;500;600;700;800&amp;display=swap"
+    rel="stylesheet" />
+
+  <script>
+    const copyTrackingIdBtn = document.getElementById("copyTrakingId");
+    copyTrackingIdBtn.addEventListener('click', copyContent);
+
+    function copyContent() {
+      var trackingIDInputContent = document.getElementById("trackingIDInputContent");
+      console.log(trackingIDInputContent);
+      var content = trackingIDInputContent.textContent;
+
+      // Create a temporary input element
+      var tempInput = document.createElement('input');
+      tempInput.value = content;
+      document.body.appendChild(tempInput);
+
+      // Copy the content from the input
+      tempInput.select();
+      document.execCommand('copy');
+      document.body.removeChild(tempInput);
+
+      // Display copied message
+      copyTrackingIdBtn.style.backgroundColor = "green"
+      copyTrackingIdBtn.style.color = "#fff"
+      copyTrackingIdBtn.classList.remove('ti-layers-subtract');
+      copyTrackingIdBtn.classList.add('ti-check');
+    }
+
+
+    $(document).on('submit', '#parcelAddForm', function (e) {
+
+      e.preventDefault();
+      const sendBtn = document.getElementById('sendBtn');
+      sendBtn.value = "Please wait...."
+      $.ajax({
+        type: 'POST',
+        url: "{% url 'app:dispatch_parcel' %}",
+        data: {
+          senderName: $('#senderName').val(),
+          senderEmail: $('#senderEmail').val(),
+          senderPhone: $('#senderPhone').val(),
+          senderAddress: $('#senderAddress').val(),
+          recipientName: $('#recipientName').val(),
+          recipientPhone: $('#recipientPhone').val(),
+          recipientAddress: $('#recipientAddress').val(),
+          product: $('#product').val(),
+          weight: $('#weight').val(),
+          height: $('#height').val(),
+          coupon: $('#coupon').val(),
+          additionalDetails: $('#additionalDetails').val(),
+          deliveryLocation: $('#deliveryLocation').val(),
+          csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
+        },
+        success: function (res) {
+          const errorMessage = document.getElementById('errorMessage');
+          const successMessage = document.getElementById('successMessage');
+          if (res.message === 'created') {
+            successMessage.textContent = "";
+            successMessage.classList.remove('hidden')
+            errorMessage.classList.add('hidden')
+            // Hide the loading icon
+            sendBtn.value = "Send"
+            successMessage.textContent = "Package dispatched successfully"
+            const showTrackingID = document.querySelector('.trackingID').style.display = "block"
+
+            // Fetch the updated package information
+            $.ajax({
+              type: 'GET',
+              url: "{% url 'app:get_package_info' %}",
+              data: { trackingId: res.tracking_id },
+              success: function (response) {
+                // Update the page content with the updated package information
+                // Assuming you have elements with corresponding IDs to display the package details
+                const trackingIdContent = document.getElementById('trackingIDInputContent').textContent = response.trackingId
+              },
+              error: function () {
+                alert('Error occurred while fetching package information');
+              }
+            });
+          } else if (res.message === "expired") {
+            errorMessage.textContent = "";
+            errorMessage.classList.remove('hidden')
+            errorMessage.textContent = "The coupon code has expired"
+            successMessage.classList.add('hidden')
+          } else if (res.message === "used") {
+            errorMessage.textContent = "";
+            errorMessage.classList.remove('hidden')
+            successMessage.classList.add('hidden')
+            errorMessage.textContent = "The coupon code has been used"
+          }
+        },
+        error: function () {
+          // Hide the loading icon
+          sendBtn.value = "Send"
+          alert('Error occurred why disptaching the package')
+        }
+      })
+    })
+
+    </script>
+</body>
+
+</html>

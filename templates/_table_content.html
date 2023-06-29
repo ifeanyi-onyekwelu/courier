@@ -1,0 +1,51 @@
+<div id="table-container">
+    <table class="table text-nowrap mb-0 align-middle">
+        <thead class="text-dark fs-4">
+            <tr>
+                <th class="border-bottom-0">
+                    <h6 class="fw-semibold mb-0">Sender</h6>
+                </th>
+                <th class="border-bottom-0">
+                    <h6 class="fw-semibold mb-0">Receiver</h6>
+                </th>
+                <th class="border-bottom-0">
+                    <h6 class="fw-semibold mb-0">Product</h6>
+                </th>
+                <th class="border-bottom-0">
+                    <h6 class="fw-semibold mb-0">Tracking ID</h6>
+                </th>
+                <th class="border-bottom-0">
+                    <h6 class="fw-semibold mb-0">Status</h6>
+                </th>
+                <th class="border-bottom-0">
+                    <h6 class="fw-semibold mb-0">Date</h6>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for dispatchedPackage in dispatchedPackages reversed %}
+            <tr>
+                <td class="border-bottom-0">
+                    <a href="{% url 'admin:dispatch' dispatchedPackage.id %}">
+                        {{ dispatchedPackage.senderName }}
+                    </a>
+                </td>
+                <td class="border-bottom-0">{{ dispatchedPackage.recipeintName }}</td>
+                <td class="border-bottom-0">{{ dispatchedPackage.product }}</td>
+                <td class="border-bottom-0">{{ dispatchedPackage.tracking_id }}</td>
+                <td class="border-bottom-0">{{ dispatchedPackage.status }}</td>
+                <td class="border-bottom-0">{{ dispatchedPackage.created_at }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td class="border-bottom-0">------</td>
+                <td class="border-bottom-0">------</td>
+                <td class="border-bottom-0">------</td>
+                <td class="border-bottom-0">------</td>
+                <td class="border-bottom-0">------</td>
+                <td class="border-bottom-0">------</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
