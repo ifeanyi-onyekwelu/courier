@@ -11,18 +11,6 @@ import os
 
 
 def home(request):
-    # Retrieve the trackingId from the session
-    trackingId = request.session.get("trackingId")
-    print("Home Page: ", trackingId)
-    if trackingId:
-        package = Package.objects.filter(tracking_id=trackingId).first()
-        print("Package: ", package.product)
-        if package is not None:
-            print("Sender name: ", package.senderName)
-            # Pass the package and it's status to the template
-            context = {"package": package}
-            return render(request, "index.html", context)
-
     return render(request, "index.html")
 
 # handle dispatch package
@@ -142,11 +130,9 @@ def trackPackage(request):
         if request.method == "POST":
             trackingId = request.POST.get("trackingID")
             package = Package.objects.filter(tracking_id=trackingId).first()
-            if package is not None:
-                request.session["trackingId"] = trackingId
-                return redirect('app:view_package_status')
-            else:
-                messages.error(request, "Package does not exist")
+            request.session["trackingId"] = trackingId
+            return redirect('app:view_package_status')
+            
     except Exception as e:
         messages.error(request, str(e))
     return render(request, "index.html")
