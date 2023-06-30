@@ -207,6 +207,24 @@
       color: white;
       font-weight: 800;
     }
+
+    #errorMessageForStatus {
+      width: 80%;
+      color: red;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #responseMessage {
+      text-align: center;
+      color: green;
+      font-weight: 700;
+    }
+    .notSent {
+      color: red !important;
+    }
   </style>
 </head>
 
@@ -235,23 +253,7 @@
             <li class="nav-item px-2">
               <a class="nav-link" href="#dispatch_parcel">Dispatch A Product</a>
             </li>
-            <li class="nav-item px-2">
-              <a class="nav-link" href="#findUs">Find Us</a>
-            </li>
           </ul>
-          <div class="dropdown d-none d-lg-block">
-            <button class="btn bg-soft-warning ms-2" id="dropdownMenuButton1" type="submit" data-bs-toggle="dropdown"
-              aria-expanded="false">
-              <i class="fas fa-search text-warning"></i>
-            </button>
-            <div class="dropdown-menu dropdown-menu-lg-end p-0 rounded" aria-labelledby="dropdownMenuButton1"
-              style="top: 55px">
-              <form>
-                <input class="form-control border-200" type="search" placeholder="Search" aria-label="Search"
-                  style="background: #fdf1df" />
-              </form>
-            </div>
-          </div>
           <a class="btn btn-primary order-1 order-lg-0 ms-lg-3" href="#contactUs">Contact Us</a>
           <form class="d-flex my-3 d-block d-lg-none">
             {% csrf_token %}
@@ -277,11 +279,12 @@
           <div class="col-md-75 col-xl-6 col-xxl-5 text-md-start text-center py-8">
             <h1 class="fw-normal fs-6 fs-xxl-7">A reliable source for</h1>
             <h1 class="fw-bolder fs-6 fs-xxl-7 mb-2">delivery solutions.</h1>
-            <form action="{% url 'app:track_package' %}" method="post" class="trackPackageForm" id="trackPackageForm">
+            <form action="" method="post" class="trackPackageForm" id="trackPackageForm">
               {% csrf_token %}
               <div class="form-group">
                 <input type="text" name="trackingID" id="trackingID" placeholder="Tracking Id">
                 <input type="submit" value="Track">
+                <div id="errorMessageForStatus"></div>
               </div>
             </form>
             <!-- HTML -->
@@ -531,7 +534,8 @@
                 </div>
                 <div class="form-group">
                   <input type="text" name="coupon" id="coupon" placeholder="Coupon">
-                  <span>Don't have one? <a href="https://wa.me/+23408113208256" style="color: #D44E15;">Get one here</a></span>
+                  <span>Don't have one? <a href="https://wa.me/+23408113208256" style="color: #D44E15;">Get one
+                      here</a></span>
                 </div>
                 <div class="form-group">
                   <input type="text" name="deliveryLocation" id="deliveryLocation" placeholder="Delivery Location">
@@ -869,26 +873,27 @@
             <h2>We will contact in the shortest time.</h2>
           </div>
           <div class="col-md-6 col-lg-5 col-xl-4">
-            <form class="row" method="post" action="sendMessage/">
+            <form class="row" method="post" action="{% url 'app:send_message' %}" id="messageForm">
               {% csrf_token %}
               <div class="mb-3">
                 <label class="form-label visually-hidden" for="inputName">Name</label>
-                <input class="form-control form-quriar-control" id="inputName" type="text" placeholder="Name" />
+                <input class="form-control form-quriar-control" id="inputName" type="text" placeholder="Name" name="name" />
               </div>
               <div class="mb-3">
                 <label class="form-label visually-hidden" for="inputEmail">Another label</label>
-                <input class="form-control form-quriar-control" id="inputEmail" type="email" placeholder="Email" />
+                <input class="form-control form-quriar-control" id="inputEmail" type="email" placeholder="Email" name="email" />
               </div>
               <div class="mb-5">
                 <label class="form-label visually-hidden" for="validationTextarea">Message</label>
                 <textarea class="form-control form-quriar-control is-invalid border-400" id="validationTextarea"
-                  placeholder="Message" style="height: 150px" required="required"></textarea>
+                  placeholder="Message" name="message" style="height: 150px" required="required"></textarea>
               </div>
               <div class="d-grid">
-                <button class="btn btn-primary" type="submit">
-                  Send Message<i class="fas fa-paper-plane ms-2"></i>
+                <button class="btn btn-primary" type="submit" id="sendMessageBtn">
+                  Send Message
                 </button>
               </div>
+              <div id="responseMessage"></div>
             </form>
           </div>
         </div>
@@ -1097,7 +1102,69 @@
       })
     })
 
-    </script>
+    $(document).on('submit', '#trackPackageForm', function (e) {
+
+      e.preventDefault();
+
+      $.ajax({
+        type: 'POST',
+        url: "{% url 'app:track_package' %}",
+        data: {
+          trackingID: $('#trackingID').val(),
+          csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
+        },
+        success: function (res) {
+          const errorMessage = document.getElementById('errorMessageForStatus');
+          if (res.message === 'success') {
+            return location.href = "{% url 'app:view_package_status' %}"
+          } else if (res.message === "notFound") {
+            errorMessage.textContent = "";
+            errorMessage.classList.remove('hidden')
+            errorMessage.textContent = "No package matching the tracking ID was found"
+          }
+        },
+        error: function () {
+          alert('Error occurred why disptaching the package')
+        }
+      })
+    })
+
+    $(document).ready(function () {
+      $("#messageForm").on("submit", function (event) {
+
+        event.preventDefault();
+        const sendMessageBtn = document.getElementById('sendMessageBtn')
+        sendMessageBtn.textContent = "sending...."
+
+        $.ajax({
+          type: "POST",
+          url: "{% url 'app:send_message' %}",
+          data: {
+            name: $('#inputName').val(),
+            email: $('#inputEmail').val(),
+            message: $('#validationTextarea').val(),
+            csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
+          },
+          success: function (response) {
+            if (response.message == 'success') {
+              sendMessageBtn.textContent = "Send Message"
+              $("#responseMessage").html("<p>Message sent successfully!</p>");
+              $("#inputName, #inputEmail, #validationTextarea").val("");
+            }
+            else if (response.message == 'unsuccessful') {
+              sendMessageBtn.textContent = "Send Message"
+              $("#responseMessage").html("<p>Message not sent!</p>");
+              $("#responseMessage").addClass('notSent')
+            }
+          },
+          error: function (xhr, errmsg, err) {
+            $("#responseMessage").html("<p>Error occurred while sending the message.</p>");
+          }
+        });
+      });
+    });
+
+  </script>
 </body>
 
 </html>

@@ -130,8 +130,12 @@ def trackPackage(request):
         if request.method == "POST":
             trackingId = request.POST.get("trackingID")
             package = Package.objects.filter(tracking_id=trackingId).first()
-            request.session["trackingId"] = trackingId
-            return redirect('app:view_package_status')
+
+            if package is not None:
+                request.session["trackingId"] = trackingId
+                return JsonResponse({"message": "success"})
+            else:
+                return JsonResponse({"message": "notFound"})
             
     except Exception as e:
         messages.error(request, str(e))
@@ -148,21 +152,21 @@ def view_package_status(request):
 
 # Handle contact us form actions
 def sendMessage(request):
-    try:
-        if request.method == "POST":
-            name = request.POST.get("name")
-            email = request.POST.get("email")
-            message = request.POST.get("message")
+    if request.method == "POST":
+        name = request.POST.get("name")
+        email = request.POST.get("email")
+        message = request.POST.get("message")
 
+        try:
             send_mail(
                 name,
                 message,
                 email,
-                # [settings.DEFAULT_FROM_EMAIL]
-                ["ifeanyionyekwelu786@gmail.com"],
+                [settings.DEFAULT_FROM_EMAIL],
                 fail_silently=False,
             )
-    except:
-        messages.error(request, "You are not connected to the internet")
-        return redirect(reverse("app:home_page"))
-    return render(request, "index.html")
+            return JsonResponse({"message": 'success'})
+        except Exception as e:
+            return JsonResponse({"message": 'unsuccessful', "error": str(e)})
+
+    return JsonResponse({"success": False, "error": "Invalid request method."})
