@@ -15,7 +15,6 @@ from .models import Coupon
 import os
 import datetime
 from django.contrib.auth.hashers import make_password
-from .management.commands.scheduler import has_updates
 
 
 # Dashboard view
