@@ -222,6 +222,7 @@
       color: green;
       font-weight: 700;
     }
+
     .notSent {
       color: red !important;
     }
@@ -492,9 +493,21 @@
     <section id="dispatch_parcel">
       <div class="container">
         <div class="row justify-content-center d-flex">
-          <div class="col-8">
+          <div class="md:col-8 col-12">
+            {% if messages %}
+            {% for message in messages %}
+            <div class="alert 
+            {% if 'error' in message.tags %} alert-danger 
+            {% elif 'success' in message.tags %} alert-success 
+            {% else %} alert-secondary {% endif %} 
+            alert-dismissible fade show" role="alert">
+              <strong>{{ message.tags|title }}:</strong> {{ message }}
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            {% endfor %}
+            {% endif %}
             <h2>Dispatch Your Parcel: Streamlined Courier Shipment Form</h4>
-              <form method="post" class="makeDelivery" action="{% url 'app:dispatch_parcel' %}" id="parcelAddForm">
+              <form method="post" class="makeDelivery" action="{% url 'app:dispatch_parcel' %}" id="makeDelivery">
                 {% csrf_token %}
                 <div class="form-group">
                   <input type="text" name="senderName" id="senderName" placeholder="Sender's name">
@@ -877,11 +890,13 @@
               {% csrf_token %}
               <div class="mb-3">
                 <label class="form-label visually-hidden" for="inputName">Name</label>
-                <input class="form-control form-quriar-control" id="inputName" type="text" placeholder="Name" name="name" />
+                <input class="form-control form-quriar-control" id="inputName" type="text" placeholder="Name"
+                  name="name" />
               </div>
               <div class="mb-3">
                 <label class="form-label visually-hidden" for="inputEmail">Another label</label>
-                <input class="form-control form-quriar-control" id="inputEmail" type="email" placeholder="Email" name="email" />
+                <input class="form-control form-quriar-control" id="inputEmail" type="email" placeholder="Email"
+                  name="email" />
               </div>
               <div class="mb-5">
                 <label class="form-label visually-hidden" for="validationTextarea">Message</label>
@@ -909,7 +924,8 @@
       <div class="container">
         <div class="row">
           <div class="col-12 col-sm-12 col-lg-6 mb-4 order-0 order-sm-0">
-            <a class="text-decoration-none" href="#"><img src="{% static 'assets/img/gallery/logo2.png' %}" alt="" width="100" /></a>
+            <a class="text-decoration-none" href="#"><img src="{% static 'assets/img/gallery/logo2.png' %}" alt=""
+                width="100" /></a>
             <p class="text-500 my-4">
               The most trusted Courier<br />company in your area.
             </p>
@@ -1029,77 +1045,6 @@
       copyTrackingIdBtn.classList.remove('ti-layers-subtract');
       copyTrackingIdBtn.classList.add('ti-check');
     }
-
-    $(document).on('submit', '#parcelAddForm', function (e) {
-
-      e.preventDefault();
-      const sendBtn = document.getElementById('sendBtn');
-      sendBtn.style.cursor = "progress"
-      sendBtn.value = "Please wait...."
-      $.ajax({
-        type: 'POST',
-        url: "{% url 'app:dispatch_parcel' %}",
-        data: {
-          senderName: $('#senderName').val(),
-          senderEmail: $('#senderEmail').val(),
-          senderPhone: $('#senderPhone').val(),
-          senderAddress: $('#senderAddress').val(),
-          recipientName: $('#recipientName').val(),
-          recipientPhone: $('#recipientPhone').val(),
-          recipientAddress: $('#recipientAddress').val(),
-          product: $('#product').val(),
-          weight: $('#weight').val(),
-          height: $('#height').val(),
-          coupon: $('#coupon').val(),
-          additionalDetails: $('#additionalDetails').val(),
-          deliveryLocation: $('#deliveryLocation').val(),
-          csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
-        },
-        success: function (res) {
-          const errorMessage = document.getElementById('errorMessage');
-          const successMessage = document.getElementById('successMessage');
-          if (res.message === 'created') {
-            successMessage.textContent = "";
-            successMessage.classList.remove('hidden')
-            errorMessage.classList.add('hidden')
-            // Hide the loading icon
-            sendBtn.value = "Send"
-            successMessage.textContent = "Package dispatched successfully"
-            const showTrackingID = document.querySelector('.trackingID').style.display = "block"
-
-            // Fetch the updated package information
-            $.ajax({
-              type: 'GET',
-              url: "{% url 'app:get_package_info' %}",
-              data: { trackingId: res.tracking_id },
-              success: function (response) {
-                // Update the page content with the updated package information
-                // Assuming you have elements with corresponding IDs to display the package details
-                const trackingIdContent = document.getElementById('trackingIDInputContent').textContent = response.trackingId
-              },
-              error: function () {
-                alert('Error occurred while fetching package information');
-              }
-            });
-          } else if (res.message === "expired") {
-            errorMessage.textContent = "";
-            errorMessage.classList.remove('hidden')
-            errorMessage.textContent = "The coupon code has expired"
-            successMessage.classList.add('hidden')
-          } else if (res.message === "used") {
-            errorMessage.textContent = "";
-            errorMessage.classList.remove('hidden')
-            successMessage.classList.add('hidden')
-            errorMessage.textContent = "The coupon code has been used"
-          }
-        },
-        error: function () {
-          // Hide the loading icon
-          sendBtn.value = "Send"
-          alert('Error occurred why disptaching the package')
-        }
-      })
-    })
 
     $(document).on('submit', '#trackPackageForm', function (e) {
 

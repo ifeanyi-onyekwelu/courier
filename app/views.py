@@ -13,6 +13,7 @@ import os
 def home(request):
     return render(request, "index.html")
 
+
 # handle dispatch package
 def dispatchPackage(request):
     try:
@@ -49,16 +50,16 @@ def dispatchPackage(request):
                 additionalComment,
             )
 
-            couponCode = Coupon.objects.get(code=coupon)
+            couponCode = get_object_or_404(Coupon, code=coupon)
 
             if couponCode is not None:
                 print("Coupon code exists")
                 if couponCode.is_expired == True:
-                    print("Code has expired fam")
-                    return JsonResponse({"message": "expired"})
+                    messages.error(request, "Coupon has expired")
+                    return redirect(reverse("app:home_page"))
                 elif couponCode.is_used == True:
-                    print("Code has been used fam")
-                    return JsonResponse({"message": "used"})
+                    messages.error(request, "Coupon has been used")
+                    return redirect(reverse("app:home_page"))
 
                 newDelivery = Package.objects.create(
                     senderName=senderName,
@@ -81,6 +82,12 @@ def dispatchPackage(request):
                 )
                 trackingId = newDelivery.tracking_id
 
+                # Store a new trackingId in the session
+                request.session["trackingId"] = trackingId
+                request.session.save()
+                couponCode.is_used = True
+                couponCode.save()
+
                 email_subject = "Parcel registered"
                 email_body = utils.get_package_recieved_content(senderName)
                 send_mail(
@@ -91,22 +98,17 @@ def dispatchPackage(request):
                     fail_silently=False,
                 )
 
-                # Store a new trackingId in the session
-                request.session["trackingId"] = trackingId
-                request.session.save()
-                couponCode.is_used = True
-                couponCode.save()
                 redirect_url = reverse("app:home_page")
-                return JsonResponse(
-                    {"message": "created", "tracking_id": trackingId}
-                )
+                messages.success(request, "Parcel has been submitted")
+                return redirect(redirect_url)
             else:
                 messages.error(request, "Code is invalid")
-                return JsonResponse({"message": "invalid"})
+                return redirect(reverse("app:home_page"))
     except Exception as e:
-        print(e)
+        messages.error(request, f"An error occurred! {e}")
         return redirect(reverse("app:home_page"))
     return render(request, "index.html")
+
 
 # Get the current created package info
 def get_package_info(request):
@@ -115,14 +117,13 @@ def get_package_info(request):
         # Retrieve the package from the database
         try:
             package = Package.objects.get(tracking_id=tracking_id)
-            package_info = {
-                "trackingId": package.tracking_id
-            }
+            package_info = {"trackingId": package.tracking_id}
             return JsonResponse(package_info)
         except Package.DoesNotExist:
             return JsonResponse({"error": "Package not found"})
 
     return JsonResponse({"error": "Invalid request method"})
+
 
 # handle track package
 def trackPackage(request):
@@ -136,19 +137,19 @@ def trackPackage(request):
                 return JsonResponse({"message": "success"})
             else:
                 return JsonResponse({"message": "notFound"})
-            
+
     except Exception as e:
         messages.error(request, str(e))
     return render(request, "index.html")
 
+
 def view_package_status(request):
     trackingId = request.session.get("trackingId")
     package = Package.objects.filter(tracking_id=trackingId).first()
-    context = {
-        'package': package
-    }
-    
-    return render(request, 'status.html', context)
+    context = {"package": package}
+
+    return render(request, "status.html", context)
+
 
 # Handle contact us form actions
 def sendMessage(request):
@@ -165,8 +166,8 @@ def sendMessage(request):
                 [settings.DEFAULT_FROM_EMAIL],
                 fail_silently=False,
             )
-            return JsonResponse({"message": 'success'})
+            return JsonResponse({"message": "success"})
         except Exception as e:
-            return JsonResponse({"message": 'unsuccessful', "error": str(e)})
+            return JsonResponse({"message": "unsuccessful", "error": str(e)})
 
     return JsonResponse({"success": False, "error": "Invalid request method."})

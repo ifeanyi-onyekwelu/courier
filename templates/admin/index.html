@@ -249,12 +249,10 @@
                         <td class="border-bottom-0">{{ dispatchedPackage.recipeintName }}</td>
                         <td class="border-bottom-0">{{ dispatchedPackage.product }}</td>
                         <td class="border-bottom-0">{{ dispatchedPackage.status }}</td>
-                        {% empty %}
-                        <td class="border-bottom-0">None yet</td>
-                        <td class="border-bottom-0">None yet</td>
-                        <td class="border-bottom-0">None yet</td>
-                        <td class="border-bottom-0">None yet</td>
-                        <td class="border-bottom-0">None yet</td>
+                      </tr>
+                      {% empty %}
+                      <tr>
+                        <td colspan="5">No package</td>
                       </tr>
                       {% endfor %}
                     </tbody>
@@ -282,103 +280,105 @@
       // =====================================
       var chart = {
         series: [
-          { name: "Packages created this year:", data: [{{ created_count }}] },
-          { name: "Packages delivered this year:", data: [{{ delivered_count }}] }
+          { name: "Packages created this year:", data: [{{ created_count }}]
+      },
+        { name: "Packages delivered this year:", data: [{{ delivered_count }}]
+    }
         ],
 
-        chart: {
-          type: "bar",
-          height: 345,
-          offsetX: -15,
-          toolbar: { show: true },
-          foreColor: "#adb0bb",
-          fontFamily: 'inherit',
-          sparkline: { enabled: false },
-        },
+      chart: {
+      type: "bar",
+      height: 345,
+      offsetX: -15,
+      toolbar: { show: true },
+      foreColor: "#adb0bb",
+      fontFamily: 'inherit',
+      sparkline: { enabled: false },
+    },
 
 
-        colors: ["#F0E68C", "#D44E15"],
+      colors: ["#F0E68C", "#D44E15"],
 
 
-        plotOptions: {
-          bar: {
-            horizontal: false,
-            columnWidth: "35%",
-            borderRadius: [6],
-            borderRadiusApplication: 'end',
-            borderRadiusWhenStacked: 'all'
-          },
-        },
-        markers: { size: 0 },
+      plotOptions: {
+      bar: {
+        horizontal: false,
+        columnWidth: "35%",
+        borderRadius: [6],
+        borderRadiusApplication: 'end',
+        borderRadiusWhenStacked: 'all'
+      },
+    },
+      markers: { size: 0 },
 
-        dataLabels: {
-          enabled: false,
-        },
+      dataLabels: {
+      enabled: false,
+    },
 
 
-        legend: {
+      legend: {
+      show: false,
+    },
+
+
+      grid: {
+      borderColor: "rgba(0,0,0,0.1)",
+      strokeDashArray: 3,
+      xaxis: {
+        lines: {
           show: false,
         },
+      },
+    },
+
+      xaxis: {
+      type: "category",
+      categories: ["2023", "2024", "2025", "2026", "2027", "2028", "2029", "2020"],
+      labels: {
+        style: { cssClass: "grey--text lighten-2--text fill-color" },
+      },
+    },
 
 
-        grid: {
-          borderColor: "rgba(0,0,0,0.1)",
-          strokeDashArray: 3,
-          xaxis: {
-            lines: {
-              show: false,
-            },
-          },
+      yaxis: {
+      show: true,
+      min: 0,
+      max: 400,
+      tickAmount: 4,
+      labels: {
+        style: {
+          cssClass: "grey--text lighten-2--text fill-color",
         },
-
-        xaxis: {
-          type: "category",
-          categories: ["2023", "2024", "2025", "2026", "2027", "2028", "2029", "2020"],
-          labels: {
-            style: { cssClass: "grey--text lighten-2--text fill-color" },
-          },
-        },
-
-
-        yaxis: {
-          show: true,
-          min: 0,
-          max: 400,
-          tickAmount: 4,
-          labels: {
-            style: {
-              cssClass: "grey--text lighten-2--text fill-color",
-            },
-          },
-        },
-        stroke: {
-          show: true,
-          width: 3,
-          lineCap: "butt",
-          colors: ["transparent"],
-        },
+      },
+    },
+      stroke: {
+      show: true,
+      width: 3,
+      lineCap: "butt",
+      colors: ["transparent"],
+    },
 
 
-        tooltip: { theme: "light" },
+      tooltip: { theme: "light" },
 
-        responsive: [
-          {
-            breakpoint: 600,
-            options: {
-              plotOptions: {
-                bar: {
-                  borderRadius: 3,
-                }
-              },
+      responsive: [
+      {
+        breakpoint: 600,
+        options: {
+          plotOptions: {
+            bar: {
+              borderRadius: 3,
             }
-          }
-        ]
+          },
+        }
+      }
+    ]
 
 
       };
 
-      var chart = new ApexCharts(document.querySelector("#chart"), chart);
-      chart.render();
+    var chart = new ApexCharts(document.querySelector("#chart"), chart);
+    chart.render();
     })
   </script>
 </body>
