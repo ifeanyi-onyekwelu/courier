@@ -216,29 +216,29 @@
     <!-- ===============================================-->
     <main class="main" id="top">
         <section class="py-xxl-10 pb-6" id="home">
-        <div class="bg-holder bg-size"></div>
-        <!--/.bg-holder-->
+            <div class="bg-holder bg-size"></div>
+            <!--/.bg-holder-->
 
-        <div class="container">
-            <div class="row align-items-center justify-content-center d-flex">
-                <div class="col-md-75 col-xl-6 col-xxl-5 text-center py-4">
-                    <h1 class="mb-3">Package Status</h1>
-                    {% if package %}
-                    <p><b>Sender name:</b> {{ package.senderName }}</p>
-                    <p><b>Sender Email:</b> {{ package.senderEmail }}</p>
-                    <p><b>Sender Phone number:</b> {{ package.senderPhone }}</p>
-                    <p><b>Sender Address:</b> {{ package.senderAddress }}</p>
-                    <p><b>Reciver's name:</b> {{ package.recipeintName }}</p>
-                    <p><b>Reciver's Phone number:</b> {{ package.recipeintPhone }}</p>
-                    <p><b>Reciver's Address:</b> {{ package.recipeintAddress }}</p>
-                    <p><b>Status:</b> {{ package.status }}</p>
-                    <!-- Add more package information as needed -->
-                    {% else %}
-                    <p>No package found with the provided tracking ID.</p>
-                    {% endif %}
+            <div class="container">
+                <div class="row align-items-center justify-content-center d-flex">
+                    <div class="col-md-75 col-xl-6 col-xxl-5 text-center py-4">
+                        <h1 class="mb-3">Package Status</h1>
+                        {% if package %}
+                        <p><b>Sender name:</b> {{ package.senderName }}</p>
+                        <p><b>Sender Email:</b> {{ package.senderEmail }}</p>
+                        <p><b>Sender Phone number:</b> {{ package.senderPhone }}</p>
+                        <p><b>Sender Address:</b> {{ package.senderAddress }}</p>
+                        <p><b>Reciver's name:</b> {{ package.recipeintName }}</p>
+                        <p><b>Reciver's Phone number:</b> {{ package.recipeintPhone }}</p>
+                        <p><b>Reciver's Address:</b> {{ package.recipeintAddress }}</p>
+                        <p><b>Status:</b> {{ package.status }}</p>
+                        <!-- Add more package information as needed -->
+                        {% else %}
+                        <p>No package found with the provided tracking ID.</p>
+                        {% endif %}
+                    </div>
                 </div>
             </div>
-        </div>
         </section>
     </main>
     <!-- ===============================================-->

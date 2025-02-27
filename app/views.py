@@ -31,7 +31,8 @@ def dispatchPackage(request):
             coupon = request.POST.get("coupon")
             delivery_location = request.POST.get("additionalDetails")
             additionalComment = request.POST.get("deliveryLocation")
-            # Make neccessary validation
+
+            # Make necessary validation
             utils.checkValues(
                 request,
                 senderName,
@@ -54,10 +55,10 @@ def dispatchPackage(request):
 
             if couponCode is not None:
                 print("Coupon code exists")
-                if couponCode.is_expired == True:
+                if couponCode.is_expired:
                     messages.error(request, "Coupon has expired")
                     return redirect(reverse("app:home_page"))
-                elif couponCode.is_used == True:
+                elif couponCode.is_used:
                     messages.error(request, "Coupon has been used")
                     return redirect(reverse("app:home_page"))
 
@@ -76,20 +77,51 @@ def dispatchPackage(request):
                     additionalComment=additionalComment,
                     delivery_location=delivery_location,
                 )
+
                 messages.success(
                     request,
-                    "Your package has been dispatched. You will recieve an email when your parcel is out for packaging.",
+                    "Your package has been dispatched. You will receive an email with your package details and tracking information.",
                 )
+
                 trackingId = newDelivery.tracking_id
 
-                # Store a new trackingId in the session
+                # Store trackingId in the session
                 request.session["trackingId"] = trackingId
                 request.session.save()
+
                 couponCode.is_used = True
                 couponCode.save()
 
-                email_subject = "Parcel registered"
-                email_body = utils.get_package_recieved_content(senderName)
+                # Send email with package info and tracking details
+                email_subject = "Your Package Has Been Dispatched"
+                email_body = f"""
+Hello {senderName},
+
+Your package has been successfully registered and is now being processed.
+
+Package Details:
+- Product: {product}
+- Weight: {weight} kg
+- Height: {height} cm
+- Recipient Name: {recipientName}
+- Recipient Address: {recipientAddress}
+- Recipient Phone: {recipientPhone}
+- Additional Comments: {additionalComment}
+
+Tracking Information:
+- Tracking ID: {trackingId}
+- Status: Processing
+
+You can track your package using this tracking ID on our website.
+
+Thank you for using our service!
+
+Best Regards,  
+Opulist Express
+
+http://opulist.xyz/
+"""
+
                 send_mail(
                     email_subject,
                     email_body,
@@ -99,14 +131,17 @@ def dispatchPackage(request):
                 )
 
                 redirect_url = reverse("app:home_page")
-                messages.success(request, "Parcel has been submitted")
+                messages.success(
+                    request, "Parcel has been submitted and an email has been sent."
+                )
                 return redirect(redirect_url)
             else:
-                messages.error(request, "Code is invalid")
+                messages.error(request, "Invalid coupon code")
                 return redirect(reverse("app:home_page"))
     except Exception as e:
         messages.error(request, f"An error occurred! {e}")
         return redirect(reverse("app:home_page"))
+
     return render(request, "index.html")
 
 

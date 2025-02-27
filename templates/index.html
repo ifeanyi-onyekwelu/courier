@@ -5,14 +5,14 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>VictorialWays | Home</title>
+  <title>Opulist Express | Home</title>
 
   <!-- ===============================================-->
   <!--    Favicons-->
   <!-- ===============================================-->
-  <link rel="apple-touch-icon" sizes="180x180" href="{% static 'assets/img/favicons/apple-touch-icon.png' %}" />
-  <link rel="icon" type="image/png" sizes="32x32" href="{% static 'assets/img/favicons/favicon-32x32.png' %}" />
-  <link rel="icon" type="image/png" sizes="16x16" href="{% static 'assets/img/favicons/favicon-16x16.png' %}" />
+  <link rel="apple-touch-icon" sizes="180x180" href="{% static 'assets/img/gallery/logo1.png' %}" />
+  <link rel="icon" type="image/png" sizes="32x32" href="{% static 'assets/img/gallery/logo1.png' %}" />
+  <link rel="icon" type="image/png" sizes="16x16" href="{% static 'assets/img/gallery/logo1.png' %}" />
   <link rel="shortcut icon" type="image/x-icon" href="{% static 'assets/img/favicons/favicon.ico' %}" />
   <link rel="manifest" href="{% static 'assets/img/favicons/manifest.json' %}" />
   <meta name="msapplication-TileImage" content="{% static 'assets/img/favicons/mstile-150x150.png' %}" />
@@ -237,7 +237,7 @@
     <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3 d-block"
       data-navbar-on-scroll="data-navbar-on-scroll">
       <div class="container">
-        <a class="navbar-brand" href="index.html"><img src="{% static 'assets/img/gallery/logo.png' %}" height="45"
+        <a class="navbar-brand" href="#home"><img src="{% static 'assets/img/gallery/logo1.png' %}" height="45"
             alt="logo" /></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
           aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -246,7 +246,7 @@
         <div class="collapse navbar-collapse border-top border-lg-0 mt-4 mt-lg-0" id="navbarSupportedContent">
           <ul class="navbar-nav ms-auto pt-2 pt-lg-0 font-base">
             <li class="nav-item px-2">
-              <a class="nav-link" aria-current="page" href="index.html">Home</a>
+              <a class="nav-link" aria-current="page" href="#home">Home</a>
             </li>
             <li class="nav-item px-2">
               <a class="nav-link" href="#services">Our Services</a>
@@ -283,8 +283,8 @@
             <form action="" method="post" class="trackPackageForm" id="trackPackageForm">
               {% csrf_token %}
               <div class="form-group">
-                <input type="text" name="trackingID" id="trackingID" placeholder="Tracking Id">
-                <input type="submit" value="Track">
+                <input type="text" name="trackingID" id="trackingID" placeholder="Tracking Id" class="mb-2">
+                <input type="submit" value="Track" class="w-25">
                 <div id="errorMessageForStatus"></div>
               </div>
             </form>
@@ -547,7 +547,7 @@
                 </div>
                 <div class="form-group">
                   <input type="text" name="coupon" id="coupon" placeholder="Coupon">
-                  <span>Don't have one? <a href="https://wa.me/+23408113208256" style="color: #D44E15;">Get one
+                  <span>Don't have one? <a href="https://wa.me/+17534788073" style="color: #D44E15;">Get one
                       here</a></span>
                 </div>
                 <div class="form-group">
@@ -924,7 +924,7 @@
       <div class="container">
         <div class="row">
           <div class="col-12 col-sm-12 col-lg-6 mb-4 order-0 order-sm-0">
-            <a class="text-decoration-none" href="#"><img src="{% static 'assets/img/gallery/logo2.png' %}" alt=""
+            <a class="text-decoration-none" href="#"><img src="{% static 'assets/img/gallery/logo1.png' %}" alt=""
                 width="100" /></a>
             <p class="text-500 my-4">
               The most trusted Courier<br />company in your area.
